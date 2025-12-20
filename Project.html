@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flipkart Clone – Final Project</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+body{
+  background:#f1f3f6;
+}
+
+/* HEADER */
+header{
+  background:#2874f0;
+  padding:12px 20px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.logo{
+  color:#fff;
+  font-size:22px;
+  font-weight:bold;
+}
+.search-box{
+  flex:1;
+  display:flex;
+}
+.search-box input{
+  flex:1;
+  padding:10px;
+  border:none;
+}
+.search-box button{
+  padding:10px 15px;
+  border:none;
+  background:#ff9f00;
+  color:#fff;
+  cursor:pointer;
+}
+.header-links a{
+  color:#fff;
+  text-decoration:none;
+  font-weight:500;
+}
+
+/* PRODUCTS */
+.products{
+  margin:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+.product-card{
+  background:#fff;
+  padding:15px;
+  border-radius:4px;
+  text-align:center;
+  box-shadow:0 1px 3px rgba(0,0,0,0.1);
+  position:relative;
+}
+.product-card img{
+  width:100%;
+  height:150px;
+  object-fit:contain;
+  cursor:pointer;
+}
+.product-card h3{
+  margin:8px 0;
+  font-size:16px;
+}
+.price{
+  color:green;
+  font-weight:bold;
+}
+button{
+  margin-top:10px;
+  padding:8px 12px;
+  border:none;
+  background:#2874f0;
+  color:#fff;
+  cursor:pointer;
+  border-radius:3px;
+}
+
+/* EXTRA */
+.rating{
+  color:#ff9f00;
+  cursor:pointer;
+  font-size:14px;
+}
+.features{
+  font-size:13px;
+  color:#555;
+  margin:5px 0;
+}
+.delivery{
+  font-size:12px;
+  color:#388e3c;
+}
+.offer{
+  background:#e53935;
+  color:#fff;
+  padding:4px 6px;
+  font-size:12px;
+  border-radius:3px;
+  display:inline-block;
+  margin-bottom:5px;
+}
+.wishlist{
+  position:absolute;
+  top:10px;
+  right:10px;
+  font-size:18px;
+  cursor:pointer;
+  color:#ff3f6c;
+}
+
+/* NO RESULT */
+#noResult{
+  display:none;
+  text-align:center;
+  margin-top:30px;
+  color:red;
+  font-size:18px;
+}
+
+/* DETAIL & CART */
+.product-detail{
+  display:none;
+  background:#fff;
+  margin:20px;
+  padding:20px;
+  border-radius:4px;
+  text-align:center;
+}
+
+/* FOOTER */
+footer{
+  background:#172337;
+  color:#fff;
+  padding:30px 20px;
+  margin-top:40px;
+}
+.footer-container{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+.footer-container h4{
+  margin-bottom:10px;
+  font-size:14px;
+  color:#878787;
+}
+.footer-container p{
+  font-size:13px;
+  line-height:1.8;
+}
+.footer-bottom{
+  text-align:center;
+  margin-top:20px;
+  font-size:12px;
+  color:#aaa;
+}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  header{
+    flex-direction:column;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Flipkart</div>
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search products">
+    <button onclick="searchProduct()">🔍</button>
+  </div>
+  <div class="header-links">
+    <a href="#" onclick="openCart()">Cart (<span id="cartCount">0</span>)</a>
+  </div>
+</header>
+
+<div id="noResult">❌ No product found</div>
+
+<div class="products">
+
+<!-- SMARTPHONE -->
+<div class="product-card" data-name="smartphone mobile">
+  <div class="wishlist" onclick="addWishlist()">❤️</div>
+  <img src="Smartphone.jpg" onclick="showDetail('Smartphone','From ₹9,999','Smartphone.jpg')">
+  <h3>Smartphone</h3>
+  <div class="rating" onclick="rateProduct(this)">⭐ 4.5</div>
+  <div class="features">6.5″ Display • 5000mAh • 5G</div>
+  <div class="offer">🔥 30% OFF</div>
+  <p class="price">From ₹9,999</p>
+  <div class="delivery">🚚 Free delivery by Tomorrow</div>
+  <button onclick="addToCart('Smartphone')">Add to Cart</button>
+</div>
+
+<!-- LAPTOP -->
+<div class="product-card" data-name="laptop">
+  <div class="wishlist" onclick="addWishlist()">❤️</div>
+  <img src="Laptop.jpg" onclick="showDetail('Laptop','From ₹39,999','Laptop.jpg')">
+  <h3>Laptop</h3>
+  <div class="rating" onclick="rateProduct(this)">⭐ 4.3</div>
+  <div class="features">i5 Processor • 8GB RAM</div>
+  <div class="offer">🔥 20% OFF</div>
+  <p class="price">From ₹39,999</p>
+  <div class="delivery">🚚 Free delivery in 2 days</div>
+  <button onclick="addToCart('Laptop')">Add to Cart</button>
+</div>
+
+<!-- SMART TV -->
+<div class="product-card" data-name="smart tv television">
+  <div class="wishlist" onclick="addWishlist()">❤️</div>
+  <img src="Smart tv.jpg" onclick="showDetail('Smart TV','From ₹19,999','Smart tv.jpg')">
+  <h3>Smart TV</h3>
+  <div class="rating" onclick="rateProduct(this)">⭐ 4.4</div>
+  <div class="features">43″ 4K • Android TV</div>
+  <div class="offer">🔥 25% OFF</div>
+  <p class="price">From ₹19,999</p>
+  <div class="delivery">🚚 Free delivery in 3 days</div>
+  <button onclick="addToCart('Smart TV')">Add to Cart</button>
+</div>
+
+<!-- HEADPHONES -->
+<div class="product-card" data-name="headphones headset">
+  <div class="wishlist" onclick="addWishlist()">❤️</div>
+  <img src="Headphone.png" onclick="showDetail('Headphones','From ₹999','Headphone.png')">
+  <h3>Headphones</h3>
+  <div class="rating" onclick="rateProduct(this)">⭐ 4.2</div>
+  <div class="features">Wireless • Noise Cancellation</div>
+  <div class="offer">🔥 40% OFF</div>
+  <p class="price">From ₹999</p>
+  <div class="delivery">🚚 Free delivery in 2 days</div>
+  <button onclick="addToCart('Headphones')">Add to Cart</button>
+</div>
+
+</div>
+
+<!-- PRODUCT DETAIL -->
+<div class="product-detail" id="detailBox">
+  <h2 id="detailName"></h2>
+  <img id="detailImg" width="200">
+  <p id="detailPrice"></p>
+  <button onclick="closeDetail()">Close</button>
+</div>
+
+<!-- CART -->
+<div class="product-detail" id="cartPage">
+  <h2>🛒 Your Cart</h2>
+  <p id="cartItems">No items</p>
+  <button onclick="closeCart()">Close</button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-container">
+    <div>
+      <h4>ABOUT</h4>
+      <p>This Flipkart Clone is an academic front-end project demonstrating core e-commerce features.</p>
+    </div>
+    <div>
+      <h4>HELP</h4>
+      <p>Payments</p><p>Shipping</p><p>Returns</p><p>FAQ</p>
+    </div>
+    <div>
+      <h4>POLICY</h4>
+      <p>Privacy</p><p>Security</p><p>Terms</p>
+    </div>
+    <div>
+      <h4>CONTACT</h4>
+      <p>Email: support@flipkartclone.com</p>
+      <p>Phone: +91 98765 43210</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 Flipkart Clone | Academic Project
+  </div>
+</footer>
+
+<script>
+let cart=0;
+let cartItems=[];
+
+function addToCart(name){
+  cart++;
+  cartItems.push(name);
+  document.getElementById("cartCount").innerText=cart;
+  document.getElementById("cartItems").innerText=cartItems.join(", ");
+  alert(name+" added to cart");
+}
+
+function addWishlist(){
+  alert("Added to wishlist ❤️");
+}
+
+function searchProduct(){
+  let input=document.getElementById("searchInput").value.toLowerCase();
+  let products=document.querySelectorAll(".product-card");
+  let found=false;
+  products.forEach(p=>{
+    if(p.getAttribute("data-name").includes(input)){
+      p.style.display="block";
+      found=true;
+    }else{
+      p.style.display="none";
+    }
+  });
+  document.getElementById("noResult").style.display=found?"none":"block";
+}
+
+function showDetail(name,price,img){
+  document.getElementById("detailName").innerText=name;
+  document.getElementById("detailPrice").innerText=price;
+  document.getElementById("detailImg").src=img;
+  document.getElementById("detailBox").style.display="block";
+}
+
+function closeDetail(){
+  document.getElementById("detailBox").style.display="none";
+}
+
+function openCart(){
+  document.getElementById("cartPage").style.display="block";
+}
+
+function closeCart(){
+  document.getElementById("cartPage").style.display="none";
+}
+
+function rateProduct(el){
+  let r=(Math.random()*2+3).toFixed(1);
+  el.innerText="⭐ "+r;
+}
+</script>
+
+</body>
+</html>
+
+
